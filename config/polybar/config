@@ -1,0 +1,505 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;==========================================================
+
+;----------------------------------------------------------
+;			Colors
+;----------------------------------------------------------
+[colors]
+background = #073642
+background-alt = #444
+foreground = #839496
+foreground-alt = #839496
+primary = #ffb52a
+secondary = #e60053
+
+alert = #bd2c40
+yellow = #b58900
+orange = #cb4b16
+red = #dc322f
+magenta = #d33682
+violet = #6c71c4
+blue = #268bd2
+cyan = #2aa198
+green = #5f8700
+base0 =  #839496
+base1 = #93a1a1
+base2 = #eee8d5
+base3 = #fdf6e3
+base00 = #657b83
+base01 = #586e75
+base02 = #073642
+base03 = #002b36
+
+[bar/HAL]
+enable-ipc = true
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 50
+offset-x = 0%
+offset-y = 0%
+radius = 0
+fixed-center = true
+
+background = ${colors.base03}
+foreground = ${colors.base00}
+
+line-size = 10
+line-color = ${colors.magenta}
+
+border-bottom-size = 0 
+border-bottom-color = ${colors.base00}
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+;----------------------------------------------------------
+;			Fonts
+;----------------------------------------------------------
+font-0 = PowerlineSymbols:size=35;10
+font-1 = Terminus:size=20;4
+font-2 = Font Awesome 5 Brands:style=Solid:size=20;3
+font-3 = Font Awesome 5 Free:style=Solid:size=20;3
+font-4 = Unifont:size=30;25
+font-5 = EmojiOne Color:size=20;2
+;----------------------------------------------------------
+;			module layout
+;----------------------------------------------------------
+
+modules-left = i3 date RightArrow1
+;modules-center =  arrow1 date RightArrow1 
+modules-right = arrow1 backlight arrow2 network vpn arrow5 cpu arrow4 memory arrow3 filesystem arrow6 temperature arrow7 battery
+
+;----------------------------------------------------------
+;	          	arrow modules
+;----------------------------------------------------------
+;
+[module/arrow1]
+type = custom/text
+content = ""
+content-foreground = ${colors.base00}
+content-background = ${colors.base03}
+
+[module/arrow2]
+type = custom/text
+content = " "
+content-foreground = ${colors.base03}
+content-background = ${colors.base00}
+
+[module/arrow3]
+type = custom/text
+content = " "
+content-foreground = ${colors.blue}
+content-background = ${colors.base00}
+
+[module/arrow4]
+type = custom/text
+content = " "
+content-foreground = ${colors.base00}
+content-background = ${colors.red}
+
+[module/arrow5]
+type = custom/text
+content = " "
+content-foreground = ${colors.red}
+content-background = ${colors.base03
+
+[module/arrow6]
+type = custom/text
+content = " "
+content-foreground = ${colors.yellow}
+content-background = ${colors.blue}
+
+[module/arrow7]
+type = custom/text
+content = " "
+content-foreground = ${colors.base03}
+content-background = ${colors.yellow}
+
+[module/RightArrow1]
+type = custom/text
+content = ""
+content-foreground = ${colors.base00}
+content-background = ${colors.base03}
+
+[module/RightArrow2]
+type = custom/text
+content = ""
+content-foreground = ${colors.red}
+content-background = ${colors.base03}
+
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+wm-restack = i3
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+
+;----------------------------------------------------------
+;		    X K E Y B O A R D
+;----------------------------------------------------------
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+;   
+format-foreground = ${colors.base03}
+format-background = ${colors.violet}
+
+label-layout =  %layout%
+label-indicator-padding = 1
+label-indicator-background = ${colors.salmon}
+
+;----------------------------------------------------------
+;		   	filesystem
+;----------------------------------------------------------
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+fixed-values = true
+
+mount-0 = /
+
+format-mounted = <label-mounted>
+format-mounted-foreground = ${colors.orange}
+format-mounted-background = ${colors.base01}
+
+;  
+label-mounted = "  %percentage_used%%"
+; %free%% %percentage_used%% %used%
+label-mounted-foreground = ${colors.base03}
+label-mounted-background = ${colors.blue}
+label-unmounted =   %mountpoint%
+label-unmounted-foreground = ${colors.base03}
+label-unmounted-background = ${colors.base00}
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.green}
+label-mode-background = ${colors.yellow}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.base03}
+label-focused-underline= ${colors.violet}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2 
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+[module/mpd]
+type = internal/mpd
+
+format-online =<label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
+format-offline =<label-offline>
+
+format-online-background = ${colors.violet}
+format-online-foreground = ${colors.base03}
+
+format-offline-background = ${colors.violet}
+format-offline-foreground = ${colors.red}
+
+icon-prev = <
+icon-stop = ◽
+icon-play = ▷
+icon-pause = ▯▯  
+icon-next = >
+
+label-offline = 🎜 mpd is offline
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+;----------------------------------------------------------
+;		     B A C K L I G H T
+;----------------------------------------------------------
+
+[module/backlight]
+type = internal/xbacklight
+; To list available cards use: $ ls -1 /sys/class/backlight/
+;card = intel_backlight
+
+format = <ramp> <label>
+;    
+label = %percentage%%
+
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+format-background = ${colors.base00}
+format-foreground = ${colors.base03}
+
+;----------------------------------------------------------
+;			   C P U
+;----------------------------------------------------------
+
+[module/cpu]
+type = internal/cpu
+interval = 2.0
+
+format = <label>
+;format = <ramp-coreload><label> 
+format-prefix = "  "
+format-foreground = ${colors.base03}
+format-background = ${colors.red}
+
+label = %percentage:2%%
+;   
+
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+;ramp-coreload-7 = █
+
+;----------------------------------------------------------
+;			M E M O R Y
+;----------------------------------------------------------
+
+[module/memory]
+type = internal/memory
+interval = 5.0
+
+format-prefix = "  "
+;format-prefix = ram
+format-foreground = ${colors.base03}
+format-background = ${colors.base00}
+format-margin-top = -5
+
+label = %percentage_used%%
+
+
+;----------------------------------------------------------
+;	      W I R E L E S S    N E T W O R K
+;----------------------------------------------------------
+
+[module/network]
+type = internal/network
+
+interface = wlp1s0
+interval = 2.0
+
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+
+label-connected = "  %essid%  %local_ip% "
+label-connected-foreground = ${colors.blue}
+label-connected-background = ${colors.base03}
+label-disconnected = "  disconnected"
+label-disconnected-foreground = ${colors.red}
+label-disconnected-background = ${colors.base03}
+
+label-connected-maxlen = 60
+
+ramp-signal-0 = ▁
+ramp-signal-1 = ▂
+ramp-signal-2 = ▃
+ramp-signal-3 = ▄
+ramp-signal-4 = ▅
+ramp-signal-5 = ▆
+ramp-signal-6 = ▇
+ramp-signal-7 = █
+
+;----------------------------------------------------------
+;		     D A T E  &  T I M E
+;----------------------------------------------------------
+[module/date]
+type = internal/date
+interval = 1
+
+format-foreground = ${colors.base03}
+format-background = ${colors.base00}
+
+date = "%d/%m/%Y | "
+
+time = "  %H:%M"
+date-alt = "%a | "
+;;time = "%I:%M:%S %p"
+time-alt = " %z %Z"
+label = "  %date%%time%  "
+
+;----------------------------------------------------------
+;			V O L U M E
+;----------------------------------------------------------
+
+
+[module/volume]
+type = internal/pulseaudio
+
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+mapping = true
+
+format-volume = <ramp-volume><label-volume>
+;     
+
+label-volume = %percentage%
+label-volume-foreground = ${colors.base03}
+label-volume-background = ${colors.blue}
+label-muted = "  muted"
+label-muted-foreground = ${colors.base03}
+label-muted-background = ${colors.red}
+
+ramp-volume-0 = "  "
+ramp-volume-0-foreground = ${colors.base03}
+ramp-volume-0-background = ${colors.blue}
+ramp-volume-1 = "  "
+ramp-volume-1-foreground = ${colors.base03}
+ramp-volume-1-background = ${colors.blue}
+ramp-volume-2 = "  "
+ramp-volume-2-foreground = ${colors.base03}
+ramp-volume-2-background = ${colors.blue}
+ramp-volume-3 = "  "
+ramp-volume-3-foreground = ${colors.base03}
+ramp-volume-3-background = ${colors.blue}
+
+bar-volume-width = 10
+bar-volume-background = #495858
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = true
+bar-volume-indicator = "|"
+bar-volume-fill = ─
+bar-volume-empty = ─
+
+;----------------------------------------------------------
+;			 B A T T E R Y
+;----------------------------------------------------------
+
+[module/battery]
+type = internal/battery
+
+battery = BAT1
+adapter = ADP1
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-charging-foreground = ${colors.green}
+format-charging-background = ${colors.base03}
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-foreground = ${colors.green}
+format-discharging-background = ${colors.base03}
+format-full = <label-full>
+format-full-foreground = ${colors.green}
+format-full-background = ${colors.base03}
+
+label-charging = "%percentage%% "
+label-discharging = "%percentage%% "
+label-discharging-foreground = ${colors.green}
+label-full = "  %percentage%% "
+; 
+ramp-capacity-0 = " "
+ramp-capacity-0-foreground = ${colors.red}
+ramp-capacity-1 = " "
+ramp-capacity-1-foreground = ${colors.orange}
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
+animation-charging-0 = " "
+animation-charging-1 = " "
+animation-charging-2 = " "
+animation-charging-3 = " "
+animation-charging-4 = " "
+;----------------------------------------------------------
+;		    T E M P E R A T U R E
+;----------------------------------------------------------
+;
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 5
+warn-temperature = 60
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+format-prefix = " "
+format-foreground = ${colors.base03}
+format-background = ${colors.yellow}
+format-warn-foreground = ${colors.base03}
+format-warn-background = ${colors.red}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+;----------------------------------------------------------
+;		      S C R I P T    M O D U L E S
+;    https://github.com/jaagr/polybar/wiki/Module:-script
+;----------------------------------------------------------
+
