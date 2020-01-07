@@ -1,0 +1,4 @@
+#!/bin/sh
+NUM=`i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).num'`
+i3-msg [workspace=$NUM] kill
+i3-msg workspace prev
