@@ -59,3 +59,21 @@ let g:ycm_auto_hover = ''
 nmap <C-@> <plug>(YCMHover)
 "nnoremap <C-@> <Plug>YCMHover
 nmap <silent> <S-Tab> :tabNext<CR>
+
+"Toggle YouCompleteMe on and off with F3
+function Toggle_ycm()
+    if g:ycm_show_diagnostics_ui == 0
+        let g:ycm_auto_trigger = 1
+        let g:ycm_show_diagnostics_ui = 1
+        :YcmRestartServer
+        :e
+        :echo "YCM on"
+    elseif g:ycm_show_diagnostics_ui == 1
+        let g:ycm_auto_trigger = 0
+        let g:ycm_show_diagnostics_ui = 0
+        :YcmRestartServer
+        :e
+        :echo "YCM off"
+    endif
+endfunction
+map <F3> :call Toggle_ycm() <CR>
